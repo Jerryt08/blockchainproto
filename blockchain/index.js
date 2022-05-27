@@ -11,6 +11,10 @@ class Blockchain{
         this.chain = [Block.genesis()];
     }
 
+    /*
+     Adds a new block to the chain by calling the mineBlock function
+     and pushing the resulting block to the chain.
+    */
     addBlock({data}){
         const newBlock = Block.mineBlock({
             lastBlock: this.chain[this.chain.length-1],
@@ -19,6 +23,10 @@ class Blockchain{
         this.chain.push(newBlock);
     }
 
+    /*
+     Verifies that the incoming chain is valid and updates the chain in the network by replacing
+     the previous chain with a new valid chain.
+    */
     replaceChain(chain, validateTransactions, onSuccess){
         if(chain.length <= this.chain.length){
             console.error('The incoming chain must be longer');
@@ -39,6 +47,10 @@ class Blockchain{
         this.chain = chain;
     }
 
+    /*
+    Iterates through all of the blockchain and verifies that the rewards for mining and 
+    transaction amounts are valid and that there are no identical transactions in the chain.
+    */
     validTransactionData({ chain }){
         for(let i = 1; i < chain.length; i++){
             const block = chain[i];
@@ -86,6 +98,10 @@ class Blockchain{
         return true;
     }
 
+    /*
+     Receives a chain and verifies if it is valid by verifying each block with the previous block.
+     Returns true if the chain is valid.
+    */
     static isValidChain(chain){
         //If the first block of the chain is not the genesis block, return false
         if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())){

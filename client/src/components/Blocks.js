@@ -28,7 +28,7 @@ class Blocks extends Component{
         return (
             <div>
                 <div><Link to='/'>Home</Link></div>
-                <h3>Blocks</h3>
+                <h3 id="textTitle">Blocks</h3>
                 <div>
                     {
                         [...Array(Math.ceil(this.state.blocksLength/5)).keys()].map(key => {
@@ -36,7 +36,7 @@ class Blocks extends Component{
 
                             return (
                                 <span key={key} onClick={this.fetchPaginatedBlocks(paginatedId)}>
-                                    <Button bsSize='small' bsStyle='danger'>
+                                    <Button bsSize='small' bsStyle='info'>
                                         {paginatedId}
                                     </Button>{' '}
                                 </span>

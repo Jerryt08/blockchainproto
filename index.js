@@ -16,7 +16,7 @@ const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 //      `http://localhost:${DEFAULT_PORT}` :
 //      'https://mighty-meadow-80615.herokuapp.com';
 
-
+// express server
 const app = express();
 const blockchain = new Blockchain();
 
@@ -29,6 +29,8 @@ const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wal
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/dist')));
+
+// Get requests to the api.
 
 app.get('/api/blocks', (req, res) => {
 
@@ -55,6 +57,7 @@ app.get('/api/blocks/:id', (req, res) => {
     res.json(blocksReversed.slice(startIndex, endIndex));
 });
 
+// Post requests to the server.
 app.post('/api/mine', (req, res) => {
 
     const {data} = req.body;
@@ -66,6 +69,7 @@ app.post('/api/mine', (req, res) => {
     res.redirect('/api/blocks');
 });
 
+// Transact endpoint
 app.post('/api/transact', (req, res) => {
     const {amount, recipient} = req.body;
     let transaction = transactionPool.existingTransaction({ inputAddress : wallet.publicKey });
@@ -124,7 +128,7 @@ app.get('/api/known-addresses', (req, res) => {
 
     res.json(Object.keys(addressMap));
 });
-
+// Directs to the home page.
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
@@ -150,7 +154,7 @@ const syncWithRootState = () => {
     });
 };
 
-
+// Generated data for testing purposes.
 if(isDevelopment){
 
 const walletFoo = new Wallet();
@@ -198,6 +202,7 @@ if(process.env.GENERATE_PEER_PORT === 'true'){
 
 const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
 
+// Listen to specified port.
 app.listen(PORT, () => {
     console.log(`listening at localhost:${PORT}`);
 

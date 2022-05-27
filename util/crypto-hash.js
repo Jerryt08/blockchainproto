@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-
+//Encrypts the provided inputs using the SHA 256 hashing algorithm and returns the hash value.
 const cryptoHash=(...inputs)=>{
     const hash = crypto.createHash('sha256');
 

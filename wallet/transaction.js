@@ -8,7 +8,8 @@ class Transaction{
         this.outputMap = outputMap || this.createOutputMap({ senderWallet, recipient, amount });
         this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
     }
-
+    //Creates an output map with the amount to be sent to the recipient and the amount
+    // to be returned to the sender. 
     createOutputMap({ senderWallet, recipient, amount }){
         const outputMap = {};
 
@@ -17,7 +18,7 @@ class Transaction{
 
         return outputMap;
     }
-
+    // Returns an object with the timestamp, amount, address and signature of the sender.
     createInput({ senderWallet, outputMap }){
 
         return {
@@ -28,6 +29,9 @@ class Transaction{
         };
     }
 
+    // Enables to update a transaction in the case various
+    // actions can be made in the same transaction without
+    // the need of creating separate transactions for each action.
     update({ senderWallet, recipient, amount }){
 
         if(amount > this.outputMap[senderWallet.publicKey]){
@@ -46,7 +50,7 @@ class Transaction{
         this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
     }
 
-
+    // Verifies that the amount and signature of the transaction are valid.
     static validTransaction(transaction){
         const {input: {address, amount, signature}, outputMap} = transaction;
 
@@ -66,7 +70,7 @@ class Transaction{
 
         return true;
     }
- 
+    // Assigns the reward that the miner will earn.
     static rewardTransaction({ minerWallet }){
         return new this({
             input: REWARD_INPUT,

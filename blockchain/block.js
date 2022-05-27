@@ -5,6 +5,10 @@ const { cryptoHash } = require('../util');
 
 class Block{
 
+/*
+ Constructor for the Block class. Defines the timestamp, lastHash, hash, data, nonce 
+ and difficulty for a specific block.
+*/
 constructor({timestamp, lastHash, hash, data, nonce, difficulty}){
     
     this.timestamp = timestamp;
@@ -15,10 +19,16 @@ constructor({timestamp, lastHash, hash, data, nonce, difficulty}){
     this.difficulty = difficulty;
     
 }
+//Returns the data for the first block in the blockchain.
 static genesis(){
     return new this(GENESIS_DATA);
 
 }
+/*
+ Receives the reference to the last block and data to encrypt in the block. Mines the block 
+ by encrypting the data, lastHash, timestamp by calling the cryptoHash class for encryption. 
+ Returns the new block with its unique properties.
+*/
 static mineBlock({lastBlock, data}){
 
     const lastHash = lastBlock.hash;
@@ -35,6 +45,11 @@ static mineBlock({lastBlock, data}){
 
     return new this({ timestamp, lastHash, data, difficulty, nonce, hash});
 }
+/*
+ Receives a block and timestamp. Makes sure the blocks are being mined at the established mine rate.
+ It will return a new dificulty level for the mining of a future block.
+
+*/
 static adjustDifficulty({ originalBlock, timestamp }) {
     const { difficulty } = originalBlock;
 

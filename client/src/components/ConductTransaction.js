@@ -39,9 +39,9 @@ class ConductTransaction extends Component {
         return (
             <div className='ConductTransaction'>
                 <Link to='/'>Home</Link>
-                <h3>Conduct a Transaction</h3>
+                <h3 id="textTitle">Conduct a Transaction</h3>
                 <br/>
-                <h4>Known Addresses</h4>
+                <h4 class="subTitle">Known Addresses</h4>
                 {
                     this.state.knownAddresses.map(knownAddress => {
                         return (
@@ -71,9 +71,9 @@ class ConductTransaction extends Component {
                 </FormGroup>
                 <div>
                     <Button
-                    bsStyle="danger"
+                    bsStyle="info"
                     onClick={this.conductTransaction}
-                    >Submit</Button>
+                    >Send</Button>
                 </div>
 
             </div>

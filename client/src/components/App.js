@@ -1,33 +1,34 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import logo from '../assets/logo.png';
+import { Button } from 'react-bootstrap';
+import logo from '../assets/blockpng.png';
 
 class App extends Component {
     state = { walletInfo: {} };
 
     componentDidMount(){
         fetch(`${document.location.origin}/api/wallet-info`)
-        .then(response => response.json())
-        .then(json => this.setState({ walletInfo: json }));
+        .then(response => response.json());
     }
    
 
     render() {
-        const {address, balance } = this.state.walletInfo;
+        
         return(
             <div className='App'>
                 <img className='logo' src= {logo}></img>
                 <br/>
-                <div>Welcome to the blockchain...</div>
+                <div id="textTitle">Welcome to JerryChain!</div>
                 <br/>
-                <div><Link to='/blocks'>Blocks</Link></div>
-                <div><Link to='/conduct-transaction'>Conduct a Transaction</Link></div>
-                <div><Link to='/transaction-pool'>Transaction Pool</Link></div>
-                <br/>
-                <div className='WalletInfo'>
-                    <div>Address: {address}</div>
-                    <div>Balance: {balance}</div>
+                <div>
+                    <div><Link to='/wallet-info'><Button bsSize='large' bsStyle='info'>My Wallet</Button></Link></div><br/>
+                    <div><Link to='/conduct-transaction'><Button bsSize='large' bsStyle='info'>Send Crypto</Button></Link></div><br/>
+                    <div><Link to='/blocks'><Button bsSize='large' bsStyle='info'>View Blocks</Button></Link></div><br/>
+                    <div><Link to='/transaction-pool'><Button bsSize='large' bsStyle='info'>Transaction Pool</Button></Link></div>
+                   
                 </div>
+                <br/>
+                
                 
             </div>
         );

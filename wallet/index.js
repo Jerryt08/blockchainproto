@@ -11,10 +11,12 @@ class Wallet{
 
         this.publicKey = this.keyPair.getPublic().encode('hex');
     }
+    // Signs and returns the encrypted data.
     sign(data) {
         return this.keyPair.sign(cryptoHash(data))//
     }
-
+    // Receives a recipient, amount and chain.
+    //Creates a new transaction if the amount to send is not greater than the wallet balance.
     createTransaction({ recipient, amount, chain }){
 
         if(chain){
@@ -29,7 +31,10 @@ class Wallet{
         }
         return new Transaction({ senderWallet: this, recipient, amount });
     }
-
+    /*
+     Calculates and returns the total balance of the given address by
+     iterating through all of the blocks in the chain and verifying the transaction outputs.
+    */
     static calculateBalance({ chain, address }){
         let hasConductedTransaction = false;
         let outputsTotal = 0;
